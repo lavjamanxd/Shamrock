@@ -1,6 +1,8 @@
 ﻿using System;
-using RestEase;
-using Shamrock.Core._4Chan.API;
+using GalaSoft.MvvmLight;
+using Shamrock.Core;
+using Shamrock.Core.Services.Interfaces;
+using Shamrock.Core.Util;
 
 namespace Shamrock.ConsoleTest
 {
@@ -8,10 +10,30 @@ namespace Shamrock.ConsoleTest
     {
         static void Main(string[] args)
         {
-            var api = RestClient.For<I4ChanApi>("http://a.4cdn.org/");
+            var bootStrap = new BootstrapConsole();
+            bootStrap.Start();
+            Console.ReadKey();
+        }
+    }
 
-            var boards = api.GetBoards().Result;
-            Console.ReadLine();
+    public class BootstrapConsole : Bootstrap
+    {
+        public override void RegisterPlatformParts()
+        {
+            Resolver.Register<INavigationService, NavigationService>();
+        }
+    }
+
+    public class NavigationService : NavigationServiceBase
+    {
+        public override void NavigateTo(ViewModelBase viewModel)
+        {
+
+        }
+
+        public override void NavigateBack()
+        {
+
         }
     }
 }

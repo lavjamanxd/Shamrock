@@ -8,6 +8,6 @@ namespace Shamrock.Core._4Chan.API
     public interface I4ChanThumbnailApi
     {
         [Get("{board}/{timestamp}s.jpg")]
-        Task<Catalog> GetThumbnail([Path] string board, [Path] string timestamp, [Path] string extension);
+        Task<Catalog> GetThumbnail([Path] string board, [Path] string timestamp);
     }
 }

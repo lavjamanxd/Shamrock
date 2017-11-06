@@ -1,23 +1,15 @@
-﻿using MicroResolver;
+﻿using Shamrock.Core.Services.Interfaces;
 
 namespace Shamrock.Core
 {
-    public abstract class CrossApplication
+    public class CrossApplication
     {
-        private ObjectResolver _resolver;
+        private readonly INavigationService _navigationService;
 
-        public void InitializeContainer()
+        public CrossApplication(INavigationService navigationService)
         {
-            _resolver = ObjectResolver.Create();
-            RegisterCommonComponents();
-            RegisterPlatformParts();
-            _resolver.Compile();
+            _navigationService = navigationService;
+            _navigationService.InitialNavigation();
         }
-
-        public void RegisterCommonComponents()
-        {
-        }
-
-        public abstract void RegisterPlatformParts();
     }
 }
