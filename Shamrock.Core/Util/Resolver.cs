@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Shamrock.Core._4Chan.Model;
+using Shamrock.Core.ViewModel;
 
 namespace Shamrock.Core.Util
 {
@@ -8,25 +10,35 @@ namespace Shamrock.Core.Util
     {
         private static Dictionary<Type, object> _register = new Dictionary<Type, object>();
 
-        public static void Register<TType>(object instance)
+        public static void Register<T>(object instance)
         {
-            _register[typeof(TType)] = instance;
+            _register[typeof(T)] = instance;
         }
 
-        public static void Register<TType, TInstance>()
+        public static void Register<TKey, T>()
         {
-            _register[typeof(TType)] = Construct<TInstance>();
+            _register[typeof(TKey)] = Construct<T>();
         }
 
-        public static TType Resolve<TType>()
+        public static T Resolve<T>()
         {
-            return (TType)_register[typeof(TType)];
+            return (T)_register[typeof(T)];
         }
 
-        public static TType Construct<TType>()
+        public static T Construct<T>()
         {
-            return (TType)Activator.CreateInstance(typeof(TType),
-                typeof(TType).GetConstructors().FirstOrDefault().GetParameters()
+            return (T)ConstructObject(typeof(T));
+        }
+
+        public static object Construct(Type type)
+        {
+            return ConstructObject(type);
+        }
+
+        private static object ConstructObject(Type type)
+        {
+            return Activator.CreateInstance(type,
+                type.GetConstructors().FirstOrDefault().GetParameters()
                     .Select(parameter => _register[parameter.ParameterType]).ToArray());
         }
     }

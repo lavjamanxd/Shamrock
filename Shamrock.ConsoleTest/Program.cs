@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using Shamrock.Core;
 using Shamrock.Core.Services.Interfaces;
 using Shamrock.Core.Util;
+using Shamrock.Core.ViewModel;
 
 namespace Shamrock.ConsoleTest
 {
@@ -26,14 +27,14 @@ namespace Shamrock.ConsoleTest
 
     public class NavigationService : NavigationServiceBase
     {
-        public override void NavigateTo(ViewModelBase viewModel)
+        public override void NavigateBack()
         {
 
         }
 
-        public override void NavigateBack()
+        protected override void NavigateTo(CommonViewModel viewModel)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

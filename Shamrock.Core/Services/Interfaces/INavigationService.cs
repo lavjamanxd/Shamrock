@@ -5,7 +5,7 @@ namespace Shamrock.Core.Services.Interfaces
     public interface INavigationService
     {
         void InitialNavigation();
-        void NavigateTo(ViewModelBase viewModel);
+        void Navigate(object modelToNavigate);
         void NavigateBack();
     }
 }
