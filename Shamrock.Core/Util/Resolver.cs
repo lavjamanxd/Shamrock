@@ -10,22 +10,22 @@ namespace Shamrock.Core.Util
     {
         private static Dictionary<Type, object> _register = new Dictionary<Type, object>();
 
-        public static void Register<T>(object instance)
+        public static void Register<T>(T instance) where T : class
         {
             _register[typeof(T)] = instance;
         }
 
-        public static void Register<TKey, T>()
+        public static void Register<TKey, T>() where T : class
         {
             _register[typeof(TKey)] = Construct<T>();
         }
 
-        public static T Resolve<T>()
+        public static T Resolve<T>() where T : class
         {
             return (T)_register[typeof(T)];
         }
 
-        public static T Construct<T>()
+        public static T Construct<T>() where T : class
         {
             return (T)ConstructObject(typeof(T));
         }
