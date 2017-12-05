@@ -5,15 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MvvmLightLibs">
-      <Version>5.4.0-alpha</Version>
-    </PackageReference>
+    <PackageReference Include="MvvmLightLibs" Version="5.4.0-alpha" />
     <PackageReference Include="Newtonsoft.Json">
-      <Version>10.0.3</Version>
+      <Version>11.0.1-beta1</Version>
     </PackageReference>
     <PackageReference Include="RestEase">
       <Version>1.4.4</Version>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="NETStandard.Library" Version="2.0.1" />
   </ItemGroup>
 
 </Project>

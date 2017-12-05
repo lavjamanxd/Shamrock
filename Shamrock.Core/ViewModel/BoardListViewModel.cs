@@ -1,27 +1,46 @@
 ﻿using Shamrock.Core.Services.Interfaces;
-using Shamrock.Core._4Chan.Model;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using Shamrock.Core.Util;
+using Shamrock.Core._4Chan.Model;
 
 namespace Shamrock.Core.ViewModel
 {
     public class BoardListViewModel : CommonViewModel
     {
-        public IEnumerable<BoardViewModel> Boards { get; private set; }
-
         private readonly IBackend _backend;
+        private readonly INavigationService _navigationService;
+        private Boards _boards;
+        private Board _selectedBoard;
 
-        public BoardListViewModel(IBackend backend)
+        public BoardListViewModel(IBackend backend, INavigationService navigationService)
         {
             _backend = backend;
+            _navigationService = navigationService;
+        }
+
+        public Boards Boards
+        {
+            get => _boards;
+            private set
+            {
+                _boards = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Board SelectedBoard
+        {
+            get => _selectedBoard;
+            set
+            {
+                _selectedBoard = value;
+                RaisePropertyChanged();
+                _navigationService.Navigate(_selectedBoard);
+            }
         }
 
         protected override async Task LoadDataAsync(object data = null)
         {
-            var boards = await _backend.Api.GetBoards();
-            Boards = boards.Boards.Select(x => new BoardViewModel(_backend));
+            Boards = (await _backend.Api.GetBoards()).Boards;
         }
     }
 }

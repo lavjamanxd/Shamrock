@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Shamrock.Core._4Chan.API;
 
 namespace Shamrock.Core.Services.Interfaces
@@ -6,6 +7,7 @@ namespace Shamrock.Core.Services.Interfaces
     {
         I4ChanApi Api { get; }
         I4ChanImageApi ImageApi { get; }
-        I4ChanThumbnailApi ThumbnailApi { get; }
+
+        Task<byte[]> GetThumbnail(string board, string timestamp);
     }
 }

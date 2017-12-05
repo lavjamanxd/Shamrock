@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Shamrock.Core._4Chan.Model;
-using Shamrock.Core.ViewModel;
 
 namespace Shamrock.Core.Util
 {

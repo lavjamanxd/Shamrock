@@ -1,0 +1,54 @@
+﻿<UserControl
+    x:Class="Shamrock.Wpf.View.Control.ThreadView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:Shamrock.Wpf.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Shamrock.Wpf.View.Control"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    Background="LightGray"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converter:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <ListView ItemsSource="{Binding Threads, Mode=OneWay}" SelectionMode="Single">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="4" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Width="128"
+                        Height="256"
+                        Background="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="3*" />
+                        </Grid.RowDefinitions>
+                        <Image
+                            Grid.Row="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Source="{Binding Image, Converter={StaticResource ByteToImageSourceConverter}, Mode=OneWay}"
+                            Stretch="UniformToFill" />
+                        <TextBlock
+                            Grid.Row="1"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Text="{Binding Comment, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

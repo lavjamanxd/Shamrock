@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
+using Shamrock.Core.Services.Interfaces;
 
 namespace Shamrock.Core._4Chan.Model
 {
-    public class Thread
+    public class Thread : ViewModelBase
     {
         [JsonProperty("no")]
         public int PostNumber { get; set; }
@@ -120,5 +123,22 @@ namespace Shamrock.Core._4Chan.Model
 
         [JsonProperty("since4pass")]
         public int ChanPassBought { get; set; }
+
+        public async Task DownloadThumbnail(IBackend backend, string boardShortName)
+        {
+            Image = await backend.GetThumbnail(boardShortName, RenamedFileName);
+        }
+
+        private byte[] _image;
+
+        public byte[] Image
+        {
+            get => _image;
+            set
+            {
+                _image = value;
+                RaisePropertyChanged();
+            }
+        }
     }
 }

@@ -1,23 +1,26 @@
 using System;
 using System.Collections.Generic;
-using GalaSoft.MvvmLight;
-using Shamrock.Core._4Chan.Model;
+using System.Threading.Tasks;
+using Shamrock.Core.Services.Interfaces;
 using Shamrock.Core.Util;
 using Shamrock.Core.ViewModel;
+using Shamrock.Core._4Chan.Model;
 
-namespace Shamrock.Core.Services.Interfaces
+namespace Shamrock.Core.Services
 {
     public abstract class NavigationServiceBase : INavigationService
     {
         private Dictionary<Type, Type> _definedNavigations = new Dictionary<Type, Type>()
         {
-            {typeof(Board), typeof(BoardViewModel)},
+            {typeof(Board), typeof(ThreadViewModel)},
             {typeof(BoardInfo), typeof(BoardListViewModel)}
         };
 
-        public void InitialNavigation()
+        public async Task InitialNavigation()
         {
-            NavigateTo(Resolver.Construct<BoardListViewModel>());
+            var a = Resolver.Construct<BoardListViewModel>();
+            await a.Load();
+            NavigateTo(a);
         }
 
         protected abstract void NavigateTo(CommonViewModel viewModel);

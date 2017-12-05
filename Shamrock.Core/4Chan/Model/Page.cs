@@ -6,7 +6,7 @@ namespace Shamrock.Core._4Chan.Model
     public class Page
     {
         [JsonProperty("threads")]
-        public List<Thread> Threads { get; set; }
+        public IEnumerable<Thread> Threads { get; set; }
 
         [JsonProperty("page")]
         public int PageIndex { get; set; }
